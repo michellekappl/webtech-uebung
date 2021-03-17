@@ -1,0 +1,30 @@
+#background {
+  background-image: url("images/bg.png");
+  width: 1920px;
+  height: 1280px;
+}
+
+.runner {
+  border: 10px solid red;
+}
+
+#runner3 {
+  /* TODO: implement me */
+  position: absolute;
+  left: 140px;
+  bottom: 258px;
+}
+
+#runner2 {
+  /* TODO: implement me */
+  position: relative;
+  left: -170px;
+  top: -120px;
+}
+
+#runner1 {
+  /* TODO: implement me */
+  position: relative;
+  right: -1170px;
+  bottom: -250px;
+}
