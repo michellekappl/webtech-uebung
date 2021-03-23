@@ -4,30 +4,28 @@
 	#container {
 		background-color: yellow;
 		padding: 10px;
-		overflow: hidden;
 	}
 	
 	#red {
-		display: block;
-		/* display block blocks whole line */
 		float: left;
-		/* floats above yellow container, but text does not overlap */
 	}
 	
 	#green {
-		/* displays green next to red.. no overlapping and yellow container is bigger */
-		float: left;
-		/* green right to red and overlaps the yellow one now */
 		float: right;
-		/* green right and overlaps yellow */
+	}
+	
+	p::after {
+		content: "";
+		clear: both;
+		display: block;
 	}
 	
 </style>
 </head>
 <body>
 <p id="container">
-	<img src="img/red.png" id="red">
-	<img src="img/green.png" id="green">
+	<img src="red.png" id="red">
+	<img src="green.png" id="green">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 </p>
 </body>
