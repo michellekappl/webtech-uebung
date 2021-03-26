@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Bob's Getränke GmbH</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue" ></script>
+	<script>Vue.config.devtools = true</script>
+</head>
+
+<body>
+
+	<div id="app" class="container mt-4">
+		<h2>Bob's Getränke GmbH Inventarliste</h2>
+		<div class="row mt-3">Search:</div>
+
+		<input v-model="filterkey" type="text" class="form-control mb-3">
+		<h4 class="text-muted">Filters:</h4>
+		<div class="row">
+			Price from:
+			<input v-model="priceFrom" type="number" class="form-control col-3 ml-3 mr-3" min="0">
+			Price to:
+			<input v-model="priceTo" type="number" class="form-control col-3 ml-3" min="0">
+			<div class="input-group mb-3 mt-3 col-6">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect">What type of drink</label>
+				</div>
+				<select v-model="typeFilter" class="custom-select" id="inputGroupSelect">
+					<option value="all" selected>all</option>
+					<option value="soft drink">soft drink</option>
+					<option value="beer">beer</option>
+				</select>
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th><a @click="() => sortparam = 'brand'" href="#">Brand</a></th>
+						<th><a @click="() => sortparam = 'type'" href="#">Type</a></th>
+						<th><a @click="() => sortparam = 'size'" href="#">Size</a></th>
+						<th><a @click="() => sortparam = 'price'" href="#">Price</a></th>
+						<th><a @click="() => sortparam = 'stock'" href="#">Stock</a></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr v-for="beverage in filteredStock">
+						<td>{{beverage.brand}}</td>
+						<td>{{beverage.type}}</td>
+						<td>{{beverage.size}}</td>
+						<td>{{beverage.price}}</td>
+						<td>{{beverage.stock}}</td>
+					</tr>
+				</tbody>
+				<thead>
+					<tr>
+						<th>Total</th>
+						<th></th>
+						<th></th>
+						<th>Price</th>
+						<th>Stock</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-if="stock.length !== 0">
+						<td>Your Selection totals to:</td>
+						<td></td>
+						<td></td>
+						<td>{{(Math.round(sumPriceAndStock[0]* 100)/100).toFixed(2)}}</td>
+						<td>{{sumPriceAndStock[1]}}</td>
+						<!-- hier soll summe der Preise und Summe der Lagerbestände hin -->
+					<tr>
+						<!-- falls nichts ausgewählt ist, soll Nothing selected ausgegeben werden -->
+						<td v-if="stock.length === 0">Nothing selected</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			var viewmodel = new Vue({
+				el: '#app',
+
+				data: {
+					sortparam: 'brand',
+					filterkey: '',
+					priceFrom: 0,
+					priceTo: 0,
+					typeFilter: 'all',
+					order: 1,
+					stock: [{
+						brand: " Berliner Pilsener",
+						type: "beer",
+						size: 0.5,
+						price: 0.72,
+						stock: 27
+					}, {
+						brand: "Vita Cola",
+						type: "soft drink",
+						size: 1,
+						price: 1.35,
+						stock: 81
+					}, {
+						brand: "Pilsener Urquell",
+						type: "beer",
+						size: 0.5,
+						price: 0.95,
+						stock: 18
+					}, {
+						brand: "Sternburg Export",
+						type: "beer",
+						size: 0.5,
+						price: 0.48,
+						stock: 36
+					}, {
+						brand: "Stoertebeker Pilsener",
+						type: "beer",
+						size: 0.5,
+						price: 1.22,
+						stock: 20
+					}, {
+						brand: "Fritz-Limo Orange",
+						type: "soft drink",
+						size: 0.33,
+						price: 0.84,
+						stock: 54
+					}, {
+						brand: "7up",
+						type: "soft drink",
+						size: 1.25,
+						price: 1.10,
+						stock: 33
+					}, {
+						brand: "Fuze Tea",
+						type: "soft drink",
+						size: 1.25,
+						price: 1,
+						stock: 20
+					}, {
+						brand: "Coca Cola",
+						type: "soft drink",
+						size: 0.33,
+						price: 0.80,
+						stock: 122
+					}, {
+						brand: "Becks Blue",
+						type: "beer",
+						size: 0.5,
+						price: 0.98,
+						stock: 101
+					}]
+				},
+				computed: {
+					filteredStock: function () {
+						return this.stock
+							.filter((beverage) => beverage.brand === this.filterkey)
+							.filter((beverage) => beverage.price >= this.priceFrom && beverage.price <= this.priceTo)
+							.filter((beverage) => this.typeFilter === "all" ? true : beverage.type === this.typeFilter)
+							.sort((a, b) => {
+								if (a[this.sortparam] < b[this.sortparam]) {
+									console.log(this.sortparam + "-1")
+									return (-1) * this.order;
+								}
+								if (a[this.sortparam] > b[this.sortparam]) {
+									console.log(this.sortparam + "+1");
+									return 1 * this.order;
+								}
+								console.log(this.sortparam + "0");
+								return 0;
+							})
+					},
+					sumPriceAndStock: function () {
+						let sumPrice = 0;
+						let sumStock = 0;
+						for (let beverage of this.filteredStock) {
+							sumPrice += beverage.price;
+							sumStock += beverage.stock;
+						}
+						return [sumPrice, sumStock];
+					}
+				},
+
+				methods: {
+					changeSortParam: function (sortParam) {
+						this.sortparam = sortParam;
+						this.order = this.order * (-1);
+					},
+				}
+			});
+		</script>
+</body>
+
+</html>
