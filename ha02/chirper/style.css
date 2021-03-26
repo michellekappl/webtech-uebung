@@ -1,4 +1,82 @@
 body {
 	margin: 0px;
 	font-family: 'Open Sans Condensed', sans-serif;
+	background-color: aliceblue;
+
+}
+
+header {
+	background-color: cornflowerblue;
+	font-size: xx-large;
+	color: white;
+	padding: 0.5em 0 0.5em 0.5em;
+	box-shadow: 5px 5px 10px grey;
+
+}
+
+.chirper-cols {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+
+
+.chirper-col h1 {
+	border: 1px dotted black;
+	padding: 0.2em;
+	text-align: center;
+}
+
+h2 {
+	border-bottom: 1px dotted black;
+	padding-bottom: 0.2em;
+	margin: 0;
+}
+
+p {
+	margin: 10px 0 0 0;
+}
+
+.chirper-card>h2::first-letter {
+	color: cornflowerblue;
+}
+
+.chirper-card {
+	margin-bottom: 2em;
+	box-shadow: 5px 5px 10px grey;
+	border-radius: 12px;
+	display: flex;
+	padding: 20px 20px 20px 0;
+}
+
+.chirper-card img {
+	margin-right: 12px;
+	width: 64px;
+	height: 64px;
+	border-radius: 100%;
+}
+
+.chirp {
+	width: 100%;
+}
+
+.chirper-col:first-of-type>.chirper-card:first-of-type {
+	background-color: antiquewhite;
+}
+
+.chirper-col:last-of-type>.chirper-card {
+	background-color: antiquewhite;
+}
+
+@media only screen and (max-width: 768px) {
+	.chirper-cols {
+		grid-template-columns: 100%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.chirper-cols {
+		grid-template-columns: 33% 33% 33%;
+	}
+
 }
