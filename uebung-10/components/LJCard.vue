@@ -1,0 +1,35 @@
+<template>
+    <b-card
+    :bg-variant="cardStyle"
+    tag="article">
+    <b-row no-gutters>
+        <b-col>
+            <b-card-title v-text="entry.title"></b-card-title>
+        </b-col>
+        <b-col>
+            <b-card-text>{{entry.date}}</b-card-text>
+        </b-col>
+        <b-col>
+        <b-card-text>
+            {{entry.content}}
+        </b-card-text>
+        </b-col>
+    </b-row>
+    </b-card>
+</template>
+
+<script>
+export default {
+    props: {
+        entry: {
+            type: Object,
+            required: true
+        }
+    },
+    computed: {
+        cardStyle: function() {
+            return this.entry.style;
+        }
+    }
+}
+</script>
