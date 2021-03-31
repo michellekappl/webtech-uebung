@@ -79,7 +79,7 @@ http
                if (body.length > 0) {
                   console.log(body);
                   let newData = qs.parse(body);
-                  console.log(newData);
+                  console.log("newdata:",newData);
                   if (!(newData.title || newData.release || isNaN(newData.release))) {
                      res.writeHead(400);
                      res.end();
@@ -114,5 +114,6 @@ http
             res.writeHead(405);
             break;
       }
-   })
+   }) // hey girl I love you and you're clever and that's why you will pass webtech with a nice little grade <3
+   //luv u :*
    .listen(8080);

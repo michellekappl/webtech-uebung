@@ -1,7 +1,62 @@
 <template>
     <div>
         <b-col><b-button v-b-modal.modal-1>Neuer Eintrag</b-button></b-col>
-        <b-modal>
+        <b-modal id="modal-1" title="Neuer Eintrag" @ok="addEntry">
+
+            
+            <b-form-group
+                id="title"
+                description="Um was geht es bei diesem Eintrag?"
+                label="Titel des Eintrags"
+                label-for="input-1"
+                :invalid-feedback="invalidFeedback"
+                :valid-feedback="validFeedback"
+            >
+                <b-form-input id="input-1" v-model="newEntry.title" :state="titleState" trim></b-form-input>
+            </b-form-group>
+ 
+
+            <b-form-group
+                id="date"
+                label="Datum"
+            > 
+                <b-form-input
+                    v-model="newEntry.date"
+                    placeholder="dd.Monat.yyyy"
+                    class="mb-3"
+                    :state="dateState"
+                >
+                </b-form-input>
+            </b-form-group>
+
+            <b-form-group
+                id="style"
+                label="Stil des Eintrags"
+
+            >
+                <b-form-select
+                    v-model="newEntry.style"
+                    :options="options"
+                    class="mb-3"
+                    :state="styleState"
+                >
+                </b-form-select>
+            </b-form-group>
+ 
+            <b-form-group
+                id="content"
+                label="Beschreibung"
+            >
+                <b-form-textarea
+                    id="textarea"
+                    v-model="newEntry.content"
+                    placeholder="Was ist an diesem Tag passiert?"
+                    rows="3"
+                    max-rows="6"
+                    :state="contentState"
+                ></b-form-textarea>
+            </b-form-group>
+
         </b-modal>
     </div>
 </template>

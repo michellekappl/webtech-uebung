@@ -1,12 +1,12 @@
 <template>
     <b-card
     :bg-variant="cardStyle"
-    tag="article">
+    tag="article"
+    style="max-width: 66vw; margin-bottom: 25px"
+    >
     <b-row no-gutters>
-        <b-col>
+        <b-col md='3' style="margin-right: 15px">
             <b-card-title v-text="entry.title"></b-card-title>
-        </b-col>
-        <b-col>
             <b-card-text>{{entry.date}}</b-card-text>
         </b-col>
         <b-col>

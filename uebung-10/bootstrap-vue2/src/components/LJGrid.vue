@@ -1,14 +1,16 @@
 <template>
     <b-container>
-        <b-row>
-            <b-col><h1>Lockdown Journal</h1></b-col>
+        <b-row align-h="center">
+            <h1 style="margin-bottom: 30px ">Lockdown Journal</h1>
         </b-row>
-        <b-row class="mb-3">
+        <b-row class="mb-3" align-h="center">
             <lj-modal v-on:added-entry="addEntry"></lj-modal>
         </b-row>
         <b-row><b-col>
-            <b-card-group>
-                <lj-card v-for="entry in entries" v-bind:key="entry.title" v-bind:entry="entry"></lj-card>
+            <b-card-group columns style="column-count:1">
+                <b-row align-h="center">
+                    <lj-card v-for="entry in entries" v-bind:key="entry.title" v-bind:entry="entry"></lj-card>
+                </b-row>
             </b-card-group>
         </b-col></b-row>
     </b-container>
@@ -25,17 +27,17 @@ export default {
     },
     methods: {
         addEntry(newEntry) {
-            this.entries.push(newEntry)
+            this.entries.unshift(newEntry)
         }
     },
     data: function () {
         return {
             entries: [
                 {
-                    title: 'Mein Tutor ist die Beste',
+                    title: 'Meine Tutorin ist die Beste',
                     date: '02.Februar.2021',
                     style:'success',
-                    content: 'Mein Tutor konnte alle meine Fragen beantworten, jetzt verstehe ich nicht nur Vue, sondern auch Bootstrap-Vue. Die nächste Hausaufgabe wird ein Kinderspiel!'
+                    content: 'Meine Tutorin konnte alle meine Fragen beantworten, jetzt verstehe ich nicht nur Vue, sondern auch Bootstrap-Vue. Die nächste Hausaufgabe wird ein Kinderspiel!'
                 },
                 {
                     title: 'Was soll ich jetzt machen?',
